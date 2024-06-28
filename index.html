@@ -20,11 +20,12 @@
                 type: "canvas",
                 data: qrtext.value !== "" ? qrtext.value : alert("QRコードの内容を入力してください。"),
                 qrOptions: {
-                    errorCorrectionLevel:'L'
+                    errorCorrectionLevel:'H',
+                    typeNumber: 13,
                 },
                 dotsOptions: {
-                    color: "#4267b2",
-                    type: "square"
+                    color: "#000",
+                    type: "classy"
                 },
                 cornersSquareOptions: {
                     type: "square"
@@ -40,8 +41,8 @@
                     margin: 0,
                 }
             });
-            const $qrCode = document.getElementById('qrCode');
-            qrCode.append($qrCode);
+            const qrCodeElement = document.getElementById('qrCode');
+            qrCode.append(qrCodeElement);
         }
         function downloadQR() {
             const qrimgdate = new Date();
