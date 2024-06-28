@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <title>GEN QR</title>
+</head>
+
+<body>
+    <script src="qr.js"></script>
+    <input type="text" id="qrtext" />
+    <button onclick="createQR()">QRコード生成</button>
+    <div id="qrCode"></div>
+    <button onclick="downloadQR()">QRコードダウンロード</button>
+    <script>
+        const qrtext = document.getElementById('qrtext');
+        const file = document.getElementById('file');
+        function createQR() {
+            const qrCode = new QRCodeStyling({
+                width: 300,
+                height: 300,
+                type: "canvas",
+                data: qrtext.value !== "" ? qrtext.value : alert("QRコードの内容を入力してください。"),
+                qrOptions: {
+                    errorCorrectionLevel:'L'
+                },
+                dotsOptions: {
+                    color: "#4267b2",
+                    type: "square"
+                },
+                cornersSquareOptions: {
+                    type: "square"
+                },
+                cornersDotOptions: {
+                    type: "square"
+                },
+                backgroundOptions: {
+                    color: "#fff",
+                },
+                imageOptions: {
+                    crossOrigin: "anonymous",
+                    margin: 0,
+                }
+            });
+            const $qrCode = document.getElementById('qrCode');
+            qrCode.append($qrCode);
+        }
+        function downloadQR() {
+            const qrimgdate = new Date();
+            const h = qrimgdate.getHours();
+            const m = qrimgdate.getMinutes();
+            const s = qrimgdate.getSeconds();
+            const qrCode = document.querySelector('canvas');
+            if (!qrCode) {
+                alert("QRコードを生成してください。");
+                return;
+            }
+            const image = qrCode.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            const a = document.createElement('a');
+            a.href = image;
+            a.download = `QRcode${h}-${m}-${s}.png`;
+            a.click();
+        }
+    </script>
+
+</body>
+
+</html>
